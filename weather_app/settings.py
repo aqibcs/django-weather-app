@@ -30,9 +30,9 @@ OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 SECRET_KEY = 'django-insecure-7yhd2e20i8^1@og_#n#j1v$#&4ap3m1u!x9jgdw#6q7q@5%8e3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'now.sh']
 
 
 # Application definition
@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'weather_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'ahXWFWoUVRoEOjPsABkqacnAuWTxqtJe',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '43017',
     }
 }
 
