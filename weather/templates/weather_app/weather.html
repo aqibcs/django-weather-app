@@ -24,6 +24,8 @@
             text-align: center;
             color: white;
             margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: bold;
         }
         .search-box {
             display: flex;
@@ -55,9 +57,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-        .weather-icon img {
-            width: 80px;
-        }
         .forecast {
             display: flex;
             flex-wrap: wrap;
@@ -74,11 +73,9 @@
         }
     </style>
 </head>
-<body onload="initWeather()">
+<body>
     <div class="container">
-        <div class="header">
-            <h1>Today's Weather</h1>
-        </div>
+        <div class="header">Today's Weather</div>
 
         <div class="search-box">
             <input type="text" id="city-input" class="search-input" placeholder="Enter city name..." onkeypress="handleKeyPress(event)">
@@ -91,14 +88,14 @@
             <h2>{{ weather.city }}</h2>
             <div class="temperature">{{ weather.temperature }}</div>
             <div class="weather-condition">{{ weather.weather }}</div>
-            <div class="weather-icon"><img src="{{ weather.icon }}" alt="Weather Icon"></div>
+            <div><img src="{{ weather.icon }}" alt="Weather Icon"></div>
             <p>🌡️ Feels Like: {{ weather.feels_like }}</p>
             <p>💨 Wind Speed: {{ weather.wind_speed }}</p>
             <p>💧 Humidity: {{ weather.humidity }}</p>
             <p>📊 Pressure: {{ weather.pressure }}</p>
         </div>
 
-        <h2 style="text-align: center; color: white;">4-Days Forecast</h2>
+        <h2 class="header">4-Days Forecast</h2>
         <div class="weather-card">
             <div class="forecast">
                 {% for date, data in forecast %}
@@ -123,52 +120,30 @@
         function searchWeather() {
             let city = document.getElementById("city-input").value;
             if (city) {
-                localStorage.setItem("lastCity", city); 
                 window.location.href = `?city=${city}`;
-            }
-        }
-
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        let lat = position.coords.latitude;
-                        let lon = position.coords.longitude;
-                        console.log("Location found:", lat, lon);
-                        
-                        localStorage.setItem("lastLat", lat);
-                        localStorage.setItem("lastLon", lon);
-                        window.location.href = `?lat=${lat}&lon=${lon}`;
-                    },
-                    (error) => {
-                        console.error("Geolocation error:", error);
-                        alert("Location access denied. Please enable location services in your browser.");
-                    }
-                );
-            } else {
-                alert("Geolocation is not supported by this browser.");
-            }
-        }
-
-        function initWeather() {
-            let lastCity = localStorage.getItem("lastCity");
-            let lastLat = localStorage.getItem("lastLat");
-            let lastLon = localStorage.getItem("lastLon");
-
-            if (!window.location.search) {
-                if (lastCity) {
-                    window.location.href = `?city=${lastCity}`;
-                } else if (lastLat && lastLon) {
-                    window.location.href = `?lat=${lastLat}&lon=${lastLon}`;
-                } else {
-                    getLocation();
-                }
             }
         }
 
         function handleKeyPress(event) {
             if (event.key === "Enter") {
                 searchWeather();
+            }
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        let lat = position.coords.latitude;
+                        let lon = position.coords.longitude;
+                        window.location.href = `?lat=${lat}&lon=${lon}`;
+                    },
+                    function (error) {
+                        alert("Geolocation failed: " + error.message);
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by this browser.");
             }
         }
     </script>

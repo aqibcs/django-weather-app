@@ -27,10 +27,10 @@ OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = os.getenv("DEBUG") == "True"
 
 # Allowed hosts for deployment
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", ".vercel.app,127.0.0.1,now.sh").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 # Application definition
 INSTALLED_APPS = [
@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'weather_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("DB_NAME", "railway"),
-        'USER': os.getenv("DB_USER", "postgres"),
-        'PASSWORD': os.getenv("DB_PASSWORD", "your-db-password"),
-        'HOST': os.getenv("DB_HOST", "monorail.proxy.rlwy.net"),
-        'PORT': os.getenv("DB_PORT", "43017"),
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('PGPORT'),
     }
 }
 
