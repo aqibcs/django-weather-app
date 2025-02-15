@@ -3,18 +3,11 @@
     "builds": [
         {
         "src": "weather_app/wsgi.py",
-        "use": "@vercel/python"
-        },
-        {
-        "src": "staticfiles/**",
-        "use": "@vercel/static"
+        "use": "@vercel/python",
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.13" }
         }
     ],
     "routes": [
-        {
-            "src": "/static/(.*)",
-            "dest": "/staticfiles/$1"
-        },
         {
             "src": "/(.*)",
             "dest": "weather_app/wsgi.py"

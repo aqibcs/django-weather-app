@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-default-secret-key")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
